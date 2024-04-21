@@ -48,8 +48,20 @@ class Library:
                     book.quantity -= 1
                     print(f"\n\t{book.name} borrowed successfully!!")
                     return
-        print(f"\n\tBook not found!!")  
-
+        print(f"\n\tBook not found!!") 
+    
+    def returnBook(self,user,id):
+        for book in user.borrowedBooks:
+            if book.id == id:
+                user.borrowedBooks.remove(book)
+                for library_book in self.books:
+                    if library_book.id == id:
+                        library_book.quantity +=1
+                        user.returnedBooks.append(book)
+                        print(f"\n\t{book.name} returned successfully!!")
+                        return
+        print("\n\tBook not found in borrowed list!!")
+        
     def showUsers(self):
         print("\n\tList of Users-----")  
         for user in self.users:
@@ -58,6 +70,16 @@ class Library:
     def showBooks(self):
         print("\n\tList of Books-----")  
         for book in self.books:
+            print(f"\tID: {book.id}, Name: {book.name}, Category: {book.cat}, Quantity: {book.quantity}") 
+    
+    def showBorrowedBooks(self):
+        print("\n\tList of Borrowed Books-----")  
+        for book in user.borrowedBooks:
+            print(f"\tID: {book.id}, Name: {book.name}, Category: {book.cat}, Quantity: {book.quantity}") 
+            
+    def showReturnedBooks(self):
+        print("\n\tList of Borrowed Books-----")  
+        for book in user.returnedBooks:
             print(f"\tID: {book.id}, Name: {book.name}, Category: {book.cat}, Quantity: {book.quantity}") 
         
 
@@ -125,7 +147,7 @@ while run:
         else:
             print("Options: \n")
             print("1: Borrow Book")
-            print("2: Return Users")
+            print("2: Return Books")
             print("3: Show Books")
             print("4: Show Borrowed Books")
             print("5: Show Returned Books")
@@ -136,4 +158,23 @@ while run:
             if ch==1:
                 id=int(input("\tEnter id: "))
                 pl.borrowBook(currentUser,id)
+                
+            elif ch==2:
+                id = int(input("\tEnter id of book to return: "))
+                pl.returnBook(currentUser, id)
+                
+            elif ch==3:
+                pl.showBooks()
+                
+            elif ch==4:
+                pl.showBorrowedBooks()
+                
+            elif ch==5:
+                pl.showReturnedBooks()
+                
+            elif ch==6:
+                currentUser=None
+                
+               
+                
 
