@@ -24,9 +24,12 @@ class Customer(User):
     def add_to_cart(self,restaurant,item_name,quantity):
         item = restaurant.menu.find_item(item_name)
         if item:
-            item.quantity = quantity
-            self.cart.add_item(item)
-            print("Item added")
+            if quantity > item.quantity:
+                print("Item quantity exceeded!!")
+            else:
+                item.quantity = quantity
+                self.cart.add_item(item)
+                print("Item added")
         else:
             print("Item not found")
             
@@ -35,7 +38,7 @@ class Customer(User):
         print("Name\tPrice\tQuantity")
         for item, quantity in self.cart.items.items():
             print(f"{item.name}\t{item.price}\t{quantity}")
-        print("Total Price: {self.cart.total_price}")
+        print(f"Total Price: {self.cart.total_price}")
 class Order:
     def __init__(self):
         self.items={}
@@ -48,7 +51,8 @@ class Order:
     def remove(self,item):
         if item in self.items:
             del self.items[item]
-            
+    
+    @property        
     def total_price(self):
         return sum(item.price * quantity for item,quantity in self.items.items())
     
@@ -140,3 +144,9 @@ ad.add_new_item(mamar_res,item2)
 
 customer1 = Customer("rahim","rahim@gmail.com",272772,"Dhaka")
 customer1.view_menu(mamar_res)
+
+item_name = input("Enter item Name: ")
+item_quantity = int(input("Enter item Quantity: "))
+
+customer1.add_to_cart(mamar_res,item_name,item_quantity)
+customer1.view_cart()
