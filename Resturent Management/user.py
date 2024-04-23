@@ -16,15 +16,17 @@ class User(ABC):  #in here user class inherit the ABC that's why now called it t
 class Customer(User):
     def __init__(self, name, phone, email, address):
         super().__init__(name, phone, email, address)
-        self.cart=None
+        self.cart= Order()
         
     def view_menu(self,restaurant):
         restaurant.menu.show_menu()
         
-    def add_to_cart(self,restaurant,item_name):
+    def add_to_cart(self,restaurant,item_name,quantity):
         item = restaurant.menu.find_item(item_name)
         if item:
-            pass
+            item.quantity = quantity
+            self.cart.add_item(item)
+            print("Item added")
         else:
             print("Item not found")
             
@@ -84,7 +86,7 @@ class Restaurant:
     def __init__(self,name):
         self.name=name
         self.employees = []  #database
-        self.menu = FoodItem()
+        self.menu = Menu()
 
     def add_employee(self,employee):
         self.employees.append(employee)
@@ -127,8 +129,14 @@ class FoodItem:
         self.price=price
         self.quantity=quantity
 
+mamar_res = Restaurant("Mammar Restaurant")
 
 mn=Menu()
 item = FoodItem("Pizza",12.5,10)
-mn.add_menu_item(item)
-mn.show_menu()
+item2= FoodItem("Burger",10,30)
+ad = Admin("rahim","rahim@gmail.com",272772,"Dhaka")
+ad.add_new_item(mamar_res,item)
+ad.add_new_item(mamar_res,item2)
+
+customer1 = Customer("rahim","rahim@gmail.com",272772,"Dhaka")
+customer1.view_menu(mamar_res)
