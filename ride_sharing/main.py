@@ -9,4 +9,8 @@ niye_jao.add_rider(rahim)
 kolimuddin = Driver("Kolim Uddin", "kalim@gmail.com",2345678,"Gulshan")
 niye_jao.add_driver(kolimuddin)
 
+rahim.request_ride(niye_jao, "Uttara", "car")
+rahim.show_current_ride()
+kolimuddin.reach_destionation(rahim.current_ride)
+
 print(niye_jao)

@@ -23,7 +23,7 @@ class Ride:
         self.rider=None
         self.start_time=None
         self.end_time=None
-        self.estimated_fare=None
+        self.estimated_fare= self.calculate_fare(vehicle.vehicle_type)
         self.vehicle=vehicle
         
     def set_driver(self,driver):
@@ -36,6 +36,15 @@ class Ride:
         self.end_time=datetime.now()
         self.rider.wallet -= self.estimated_fare
         self.driver.wallet += self.estimated_fare
+    
+    def calculate_fare(self,vehicle):
+        distance = 10
+        fare_per_km = {
+            'car': 30,
+            'bike': 20,
+            'cng': 15
+        }
+        return distance * fare_per_km.get(vehicle)
         
     def __repr__(self):
         return f"Ride Details. Started {self.start_location} to {self.end_location}"
@@ -53,12 +62,12 @@ class RideMatching:
         if len(self.available_drivers) > 0:
             print("Looking for divers....")
             driver = self.available_drivers[0]
-            ride = Ride(ride_request.rider.current_location, ride_request.end_location)
-            if vehicle_type == 'car':
-                car = Car('Car','abu878',30)
-            elif vehicle_type == 'bike':
-                bike = Bike('Motor Bike', 'dggd677', 50)
             
+            if vehicle_type == 'car':
+                vehicle = Car('Car','abu878',30)
+            elif vehicle_type == 'bike':
+                vehicle = Bike('Motor Bike', 'dggd677', 50)
+            ride = Ride(ride_request.rider.current_location, ride_request.end_location,vehicle)
             driver.accept_ride(ride)
             return ride
       

@@ -50,4 +50,8 @@ class Driver(User):
         print(f"Driver Name: {self.name}")
         
     def accept_ride(self,ride):
+        ride.start_ride()
         ride.set_driver(self)
+        
+    def reach_destionation(self,ride):
+        ride.end_ride()
