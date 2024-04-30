@@ -13,4 +13,4 @@ rahim.request_ride(niye_jao, "Uttara", "car")
 rahim.show_current_ride()
 kolimuddin.reach_destionation(rahim.current_ride)
 
-print(niye_jao)
+rahim.show_current_ride()

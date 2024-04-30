@@ -64,9 +64,9 @@ class RideMatching:
             driver = self.available_drivers[0]
             
             if vehicle_type == 'car':
-                vehicle = Car('Car','abu878',30)
+                vehicle = Car('car','abu878',30)
             elif vehicle_type == 'bike':
-                vehicle = Bike('Motor Bike', 'dggd677', 50)
+                vehicle = Bike('bike', 'dggd677', 50)
             ride = Ride(ride_request.rider.current_location, ride_request.end_location,vehicle)
             driver.accept_ride(ride)
             return ride
