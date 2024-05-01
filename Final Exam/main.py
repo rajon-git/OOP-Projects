@@ -4,7 +4,7 @@ from user import User
 
 bank = Bank()
 admin = Admin(bank)
-user = User("Rajon", "rajon@gmail.com", "Dhaka", "Savings",bank)
+user = User("MD. Rajon Ahamad", "rajon.zhsust15@gmail.com", "Dhaka", "Savings",bank)
 
 while True:
     print("\n ------ Welcome To My Bank Dashboard -----")
